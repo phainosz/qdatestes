@@ -8,6 +8,12 @@ public class Validacao {
 	public Validacao() {
 	}
 
+	public Validacao(String atributo, String mensagem) {
+		this.atributo = atributo;
+		this.mensagem = mensagem;
+		
+	}
+
 	public String getAtributo() {
 		return atributo;
 	}

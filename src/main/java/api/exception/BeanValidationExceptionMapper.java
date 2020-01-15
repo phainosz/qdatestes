@@ -1,5 +1,8 @@
 package api.exception;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path.Node;
@@ -21,20 +24,22 @@ public class BeanValidationExceptionMapper implements ExceptionMapper<Constraint
 	@Override
 	public Response toResponse(ConstraintViolationException e) {
 		Status status = Status.NOT_ACCEPTABLE;
-		MensagemDeErro msg = new MensagemDeErro(getValidacoes(e), status);
+		Mensagem msg = new Mensagem(getValidacoes(e), status);
 		return Response.status(status).entity(msg).type(MediaType.APPLICATION_JSON).build();
 	}
 
-	private String getValidacoes(ConstraintViolationException constraintViolation) {
-		StringBuilder builder = new StringBuilder();
+	private List<Validacao> getValidacoes(ConstraintViolationException constraintViolation) {
+		List<Validacao> validacoes = new ArrayList<>();
+		String atributo = "";
+		String mensagem = "";
 		for (ConstraintViolation<?> cv : constraintViolation.getConstraintViolations()) {
-			String field = "";
 			for (Node node : cv.getPropertyPath()) {
-				field = node.getName();
+				atributo = node.getName();
+				mensagem = cv.getMessage();
 			}
-			builder.append("Erro: '" + field + "' " + cv.getMessage() + "\n");
+			validacoes.add(new Validacao(atributo, mensagem));
 		}
-		return builder.toString();
+		return validacoes;
 	}
 
 }

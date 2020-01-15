@@ -1,6 +1,6 @@
 package api.exception;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -9,13 +9,10 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.apache.commons.collections4.CollectionUtils;
-
-import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 /**
- * Classe que trata excecoes de atributos de entidades nao existentes
+ * Classe que trata excecoes de atributos nao existentes
  *
  */
 @Provider
@@ -23,26 +20,16 @@ public class UnrecognizedPropertyExceptionMapper implements ExceptionMapper<Unre
 
 	@Override
 	public Response toResponse(UnrecognizedPropertyException e) {
-		// alterar e usar esse aqui apenas e.getPropertyName();
-		return buildResponse(buildMessage(e));
+		Status status = Status.BAD_REQUEST;
+		Mensagem mensagem = new Mensagem(getValidacoes(e), status);
+		return Response.status(Status.fromStatusCode(mensagem.getStatus())).type(MediaType.APPLICATION_JSON).entity(mensagem)
+				.build();
 	}
 
-	private MensagemDeErro buildMessage(UnrecognizedPropertyException e) {
-		List<Reference> references = e.getPath();
-		String wrongFieldMessage = "Verifique se os campos est„o corretos";
-		if (CollectionUtils.isNotEmpty(references)) {
-			wrongFieldMessage = "Verifique se o campo '" + references.get(0).getFieldName() + "' est· correto";
-		}
-		Collection<Object> propertyIds = e.getKnownPropertyIds();
-		if (CollectionUtils.isNotEmpty(propertyIds)) {
-			wrongFieldMessage += " dentre as seguintes opÁıes: ".concat(propertyIds.toString());
-		}
-		wrongFieldMessage += ".";
-		return new MensagemDeErro(wrongFieldMessage, Status.BAD_REQUEST);
-	}
-
-	private static Response buildResponse(MensagemDeErro mensagem) {
-		return Response.status(Status.fromStatusCode(mensagem.getStatus())).type(MediaType.APPLICATION_JSON).entity(mensagem).build();
+	private List<Validacao> getValidacoes(UnrecognizedPropertyException e) {
+		List<Validacao> validacoes = new ArrayList<>();
+		validacoes.add(new Validacao(e.getPropertyName(), "Campo inv√°lido. Op√ß√µes v√°lidas -" + e.getKnownPropertyIds()));
+		return validacoes;
 	}
 
 }

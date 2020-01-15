@@ -24,16 +24,16 @@ public class InvalidFormatExceptionMapper implements ExceptionMapper<InvalidForm
 		return buildResponse(buildMessage(e));
 	}
 
-	private MensagemDeErro buildMessage(InvalidFormatException e) {
+	private Mensagem buildMessage(InvalidFormatException e) {
 		List<Reference> references = e.getPath();
 		String field = "Verifique se os campos estão corretos";
 		if (CollectionUtils.isNotEmpty(references)) {
 			field = "Verifique se o campo '" + references.get(0).getFieldName() + "' está correto. Utilize o padrão: dd-MM-yyyy.";
 		}
-		return new MensagemDeErro(field, Status.BAD_REQUEST);
+		return new Mensagem(field, Status.BAD_REQUEST);
 	}
 
-	private static Response buildResponse(MensagemDeErro mensagem) {
+	private static Response buildResponse(Mensagem mensagem) {
 		return Response.status(Status.fromStatusCode(mensagem.getStatus())).type(MediaType.APPLICATION_JSON).entity(mensagem).build();
 	}
 
