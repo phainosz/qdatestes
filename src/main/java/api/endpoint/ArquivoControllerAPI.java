@@ -26,9 +26,12 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import dao.ArquivoDAO;
+import dao.PessoaDAO;
 import entities.Arquivo;
+import entities.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import util.GerenciadorPlanilha;
 
 @Api(tags = "Arquivos")
 @Path("arquivos")
@@ -37,6 +40,9 @@ public class ArquivoControllerAPI {
 
 	@Inject
 	private ArquivoDAO arquivoDAO;
+
+	@Inject
+	private PessoaDAO pessoaDAO;
 
 	@Context
 	private UriInfo uriInfo;
@@ -75,6 +81,15 @@ public class ArquivoControllerAPI {
 			file.setTipo(split[split.length - 1]);
 		}
 		Arquivo inserido = arquivoDAO.inserir(file);
+		if (inserido.getTipo().equals("xlsx")) {
+			GerenciadorPlanilha gerenciador = new GerenciadorPlanilha();
+			List<Pessoa> pessoas = gerenciador.criar(inserido.getFile());
+
+			for (Pessoa pessoa : pessoas) {
+				pessoaDAO.inserir(pessoa);
+				System.out.println("Pessoa: " + pessoa);
+			}
+		}
 		return Response.created(criarUri(inserido)).build();
 	}
 

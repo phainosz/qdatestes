@@ -30,14 +30,14 @@ public class PessoaControllerAPI {
 	@Context
 	private UriInfo uriInfo;
 
-	@GET
 	@ApiOperation("Lista todas as Pessoas gravadas na base de dados")
+	@GET
 	public Response listar() {
 		return Response.ok().entity(pessoaDAO.listar()).build();
 	}
 
-	@POST
 	@ApiOperation("Inserir Pessoas na base de dados")
+	@POST
 	public Response inserir(Pessoa pessoa) {
 		Pessoa inserida = pessoaDAO.inserir(pessoa);
 		return Response.created(criarUri(inserida)).entity(inserida).build();

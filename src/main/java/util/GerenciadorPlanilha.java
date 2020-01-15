@@ -1,10 +1,13 @@
 package util;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.ws.rs.WebApplicationException;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -92,6 +95,42 @@ public class GerenciadorPlanilha {
 				break;
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> criar(byte[] file) {
+		pessoas = new ArrayList<>();
+		// Recebe o arquivo do upload
+		InputStream in = new ByteArrayInputStream(file);
+		XSSFWorkbook workbook;
+		try {
+			workbook = new XSSFWorkbook(in);
+
+			// pega o workbook da aba 0
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
+			// seta as linhas
+			List<Row> rows = (List<Row>) toList(sheet.iterator());
+
+			// remove a linha que identifica cada coluna
+			rows.remove(0);
+
+			for (Row row : rows) {
+				// seta as colunas
+				List<Cell> cells = (List<Cell>) toList(row.cellIterator());
+
+				if (!cells.isEmpty()) {
+					adicionarCelulasNaEntidade(cells);
+				} else {
+					break;
+				}
+			}
+			workbook.close();
+		} catch (Exception e) {
+			throw new WebApplicationException("Falha na leitura da planilha");
+		}
+		return pessoas;
+
 	}
 
 }
