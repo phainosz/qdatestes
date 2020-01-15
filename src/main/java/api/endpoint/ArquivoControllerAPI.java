@@ -59,6 +59,7 @@ public class ArquivoControllerAPI {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadArquivo(MultipartFormDataInput input) {
 		Arquivo file = new Arquivo();
+		// pega o input com o nome de file
 		List<InputPart> inputParts = input.getFormDataMap().get("file");
 		for (InputPart part : inputParts) {
 			try {
@@ -67,20 +68,14 @@ public class ArquivoControllerAPI {
 				throw new WebApplicationException("Falha no download");
 			}
 			String nomeCompletoComTipo = criarNomeFile(part.getHeaders());
+			// faz o split pelo ponto para pegar o contentType
 			String[] split = nomeCompletoComTipo.split(Pattern.quote("."));
 			file.setNome(nomeCompletoComTipo);
+			// pega o contentType da utima posicao do array
 			file.setTipo(split[split.length - 1]);
 		}
-
-		Arquivo inserir = arquivoDAO.inserir(file);
-		return Response.created(criarUri(inserir)).build();
-
-		// funciona
-//		if (arquivo != null) {
-//			Arquivo inserir = arquivoDAO.inserir(arquivo);
-//			return Response.created(criarUri(inserir)).build();
-//		}
-//		return Response.status(Status.BAD_REQUEST).build();
+		Arquivo inserido = arquivoDAO.inserir(file);
+		return Response.created(criarUri(inserido)).build();
 	}
 
 	/**
@@ -104,7 +99,13 @@ public class ArquivoControllerAPI {
 		return "unknown";
 	}
 
-	private URI criarUri(Arquivo inserir) {
-		return uriInfo.getBaseUriBuilder().path(ArquivoControllerAPI.class).path(inserir.getId().toString()).build();
+	/**
+	 * Cria URI de acordo com o id e a classe
+	 * 
+	 * @param inserir
+	 * @return
+	 */
+	private URI criarUri(Arquivo inserido) {
+		return uriInfo.getBaseUriBuilder().path(ArquivoControllerAPI.class).path(inserido.getId().toString()).build();
 	}
 }

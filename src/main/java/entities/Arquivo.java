@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
-import javax.ws.rs.FormParam;
 
 @Entity
 public class Arquivo implements Serializable {
@@ -19,11 +18,9 @@ public class Arquivo implements Serializable {
 	@GeneratedValue(generator = "NUM_SEQ_ARQUIVO", strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@FormParam("nome")
 	private String nome;
 
 	@Lob
-	@FormParam("file")
 	private byte[] file;
 
 	private String tipo;

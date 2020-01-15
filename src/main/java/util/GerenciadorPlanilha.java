@@ -54,6 +54,16 @@ public class GerenciadorPlanilha {
 	}
 
 	/**
+	 * Transforma de iterator para List
+	 * 
+	 * @param iterator
+	 * @return
+	 */
+	private List<?> toList(Iterator<?> iterator) {
+		return IteratorUtils.toList(iterator);
+	}
+
+	/**
 	 * Metodo que atribui os valores das celulas para a entidade desejada
 	 * 
 	 * @param cells
@@ -82,16 +92,6 @@ public class GerenciadorPlanilha {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Transforma de iterator para List
-	 * 
-	 * @param iterator
-	 * @return
-	 */
-	private List<?> toList(Iterator<?> iterator) {
-		return IteratorUtils.toList(iterator);
 	}
 
 }

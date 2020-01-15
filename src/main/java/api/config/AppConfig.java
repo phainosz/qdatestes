@@ -16,8 +16,8 @@ public class AppConfig extends Application {
 
 	public AppConfig() {
 		BeanConfig conf = new BeanConfig();
-		conf.setTitle("Projeto Base API");
-		conf.setDescription("Projeto base de APIs em Rest");
+		conf.setTitle("Projeto APIEUD API");
+		conf.setDescription("Projeto para upload e download em rest. Upload de planilha excel padrão, gravar o conteúdo no banco");
 		conf.setVersion("1.0.0");
 		conf.setHost("localhost:8080");
 		conf.setBasePath("/projeto/api");
