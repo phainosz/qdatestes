@@ -2,9 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +18,7 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(generator = "NUM_SEQ", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "NUM_SEQ", sequenceName = "NUM_SEQ_PESSOA", allocationSize = 0)
 	private Long id;
+	
 	private String nome;
 	private String cpf;
 	private String sobrenome;
@@ -76,14 +74,6 @@ public class Pessoa implements Serializable {
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-	}
-
-	public void setDataNascimento(LocalDateTime dataNascimento) {
-		this.dataNascimento = dataNascimento.toLocalDate();
 	}
 
 	public void setDataNascimento(LocalDate dataNascimento) {

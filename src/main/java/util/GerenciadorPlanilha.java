@@ -91,7 +91,7 @@ public class GerenciadorPlanilha {
 				pessoa.setIdade((int) cell.getNumericCellValue());
 				break;
 			case 4:
-				pessoa.setDataNascimento(cell.getLocalDateTimeCellValue());
+				pessoa.setDataNascimento(cell.getLocalDateTimeCellValue().toLocalDate());
 				break;
 			}
 		}
