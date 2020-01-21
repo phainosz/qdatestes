@@ -21,16 +21,16 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+	<!-- <servlet> -->
+	<!-- <servlet-name>Faces Servlet</servlet-name> -->
+	<!-- <servlet-class>javax.faces.webapp.FacesServlet</servlet-class> -->
+	<!-- <load-on-startup>1</load-on-startup> -->
+	<!-- </servlet> -->
 
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>Faces Servlet</servlet-name> -->
+	<!-- <url-pattern>*.jsf</url-pattern> -->
+	<!-- </servlet-mapping> -->
 
 	<welcome-file-list>
 		<welcome-file>index.jsf</welcome-file>
@@ -40,4 +40,34 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>secure</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>index</web-resource-name>
+			<url-pattern>/index.jsf</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>file</realm-name>
+	</login-config>
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
 </web-app>
