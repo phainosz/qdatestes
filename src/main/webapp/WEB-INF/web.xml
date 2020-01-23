@@ -36,37 +36,40 @@
 		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
 
+	<!-- usado para funcionar o tema do bootstrap no primefaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>secure</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>*</role-name>
-		</auth-constraint>
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>index</web-resource-name>
-			<url-pattern>/index.jsf</url-pattern>
-		</web-resource-collection>
-		<user-data-constraint>
-			<transport-guarantee>NONE</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
+	<!-- <security-constraint> -->
+	<!-- <web-resource-collection> -->
+	<!-- <web-resource-name>secure</web-resource-name> -->
+	<!-- <url-pattern>/*</url-pattern> -->
+	<!-- </web-resource-collection> -->
+	<!-- <auth-constraint> -->
+	<!-- <role-name>*</role-name> -->
+	<!-- </auth-constraint> -->
+	<!-- <user-data-constraint> -->
+	<!-- <transport-guarantee>CONFIDENTIAL</transport-guarantee> -->
+	<!-- </user-data-constraint> -->
+	<!-- </security-constraint> -->
 
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>file</realm-name>
-	</login-config>
+	<!-- usado para login usando basic authentication -->
+	<!-- <login-config> -->
+	<!-- <auth-method>BASIC</auth-method> -->
+	<!-- <realm-name>realm</realm-name> -->
+	<!-- </login-config> -->
+
+	<!-- usado para login usando formulario -->
+	<!-- <login-config> -->
+	<!-- <auth-method>FORM</auth-method> -->
+	<!-- <form-login-config> -->
+	<!-- <form-login-page>/index.xhtml</form-login-page> -->
+	<!-- <form-error-page>/index.xhtml</form-error-page> -->
+	<!-- </form-login-config> -->
+	<!-- </login-config> -->
+
 	<security-role>
 		<role-name>admin</role-name>
 	</security-role>
