@@ -6,7 +6,7 @@ import javax.ws.rs.core.Application;
 import io.swagger.jaxrs.config.BeanConfig;
 
 /**
- * Configuraï¿½ï¿½o de caminho inicia para a API REST
+ * Configuracao de caminho inicia para a API REST
  * 
  * @author E804684
  *
@@ -17,7 +17,7 @@ public class AppConfig extends Application {
 	public AppConfig() {
 		BeanConfig conf = new BeanConfig();
 		conf.setTitle("Projeto APIEUD API");
-		conf.setDescription("Projeto para upload e download em rest. Upload de planilha excel padrï¿½o, gravar o conteï¿½do no banco");
+		conf.setDescription("Projeto para upload e download em rest. Upload de planilha excel padrão, gravar o conteúdo no banco");
 		conf.setVersion("1.0.0");
 		conf.setHost("localhost:8080");
 		conf.setBasePath("/apieud/api");

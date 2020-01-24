@@ -23,7 +23,20 @@
 		</plugins>
 	</build>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
 	<dependencies>
+
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j</artifactId>
+			<version>6.1.2</version>
+		</dependency>
+
+
 		<!-- dependencia para upload de arquivos usando resteasy -->
 		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-multipart-provider -->
 		<dependency>
@@ -120,6 +133,12 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.10.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+
 
 		<!-- dependencia para documentacao do swagger -->
 		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-jaxrs -->
