@@ -10,7 +10,8 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
 /**
- * Classe responsavel por ler o template e substituir com novos dados
+ * Classe responsavel por ler o template e substituir com novos dados usando Docx4J
+ * Segundo informacoes, Docx4J precisa do office instalado
  * 
  * @author Paulo Hainosz
  *
