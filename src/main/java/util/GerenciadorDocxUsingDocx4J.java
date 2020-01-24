@@ -45,7 +45,7 @@ public class GerenciadorDocxUsingDocx4J {
 		byte[] byteArray = outputStream.toByteArray();
 
 		// grava o novo arquivo
-		try (FileOutputStream fos = new FileOutputStream("C:\\Users\\e804684\\Desktop\\resultado.docx")) {
+		try (FileOutputStream fos = new FileOutputStream("C:\\Users\\e804684\\Desktop\\resultadoDocx4J.docx")) {
 			fos.write(byteArray);
 		}
 	}
