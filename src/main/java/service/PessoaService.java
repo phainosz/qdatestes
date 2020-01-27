@@ -5,8 +5,8 @@ import javax.ejb.Stateless;
 
 import dao.GenericDAO;
 import dao.PessoaDAO;
-import entities.Pessoa;
-import enums.Acao;
+import entity.Pessoa;
+import enumerated.AcaoDAO;
 
 @Stateless
 public class PessoaService extends GenericService<Pessoa> {
@@ -20,7 +20,7 @@ public class PessoaService extends GenericService<Pessoa> {
 	}
 
 	@Override
-	public void regrasDeNegocioEntidade(Pessoa entity, Acao acao) {
+	public void regrasDeNegocioEntidade(Pessoa entity, AcaoDAO acaoDAO) {
 		// TODO Auto-generated method stub
 
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ws.rs.NotFoundException;
 
 import dao.GenericDAO;
-import enums.Acao;
+import enumerated.AcaoDAO;
 
 /**
  * Classe de Servico generico
@@ -23,14 +23,14 @@ public abstract class GenericService<T> {
 	 */
 	public abstract GenericDAO<T> getEntidadeDAO();
 
-	public abstract void regrasDeNegocioEntidade(T entity, Acao acao);
+	public abstract void regrasDeNegocioEntidade(T entity, AcaoDAO acaoDAO);
 
 	public T find(Long id) {
 		T find = this.getEntidadeDAO().find(id);
 		if (find != null) {
 			return this.getEntidadeDAO().find(id);
 		} else {
-			throw new NotFoundException("Não foi escontrado o id " + id);
+			throw new NotFoundException("Nï¿½o foi escontrado o id " + id);
 		}
 	}
 
@@ -39,17 +39,17 @@ public abstract class GenericService<T> {
 	}
 
 	public T inserir(T entity) {
-		this.regrasDeNegocioEntidade(entity, Acao.INSERT);
+		this.regrasDeNegocioEntidade(entity, AcaoDAO.INSERT);
 		return this.getEntidadeDAO().inserir(entity);
 	}
 
 	public T alterar(T entity) {
-		this.regrasDeNegocioEntidade(entity, Acao.UPDATE);
+		this.regrasDeNegocioEntidade(entity, AcaoDAO.UPDATE);
 		return this.getEntidadeDAO().alterar(entity);
 	}
 
 	public void remover(T entity) {
-		this.regrasDeNegocioEntidade(entity, Acao.DELETE);
+		this.regrasDeNegocioEntidade(entity, AcaoDAO.DELETE);
 		this.getEntidadeDAO().remover(entity);
 	}
 

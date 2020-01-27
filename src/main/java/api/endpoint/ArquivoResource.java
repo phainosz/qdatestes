@@ -27,8 +27,8 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import dao.ArquivoDAO;
 import dao.PessoaDAO;
-import entities.Arquivo;
-import entities.Pessoa;
+import entity.Arquivo;
+import entity.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import util.GerenciadorPlanilha;
@@ -36,7 +36,7 @@ import util.GerenciadorPlanilha;
 @Api(tags = "Arquivos")
 @Path("arquivos")
 @Produces(MediaType.APPLICATION_JSON)
-public class ArquivoControllerAPI {
+public class ArquivoResource {
 
 	@Inject
 	private ArquivoDAO arquivoDAO;
@@ -121,6 +121,6 @@ public class ArquivoControllerAPI {
 	 * @return
 	 */
 	private URI criarUri(Arquivo inserido) {
-		return uriInfo.getBaseUriBuilder().path(ArquivoControllerAPI.class).path(inserido.getId().toString()).build();
+		return uriInfo.getBaseUriBuilder().path(ArquivoResource.class).path(inserido.getId().toString()).build();
 	}
 }

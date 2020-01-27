@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import dao.PessoaDAO;
-import entities.Pessoa;
+import entity.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 @Path("pessoas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PessoaControllerAPI {
+public class PessoaResource {
 
 	@Inject
 	private PessoaDAO pessoaDAO;
@@ -50,6 +50,6 @@ public class PessoaControllerAPI {
 	 * @return
 	 */
 	private URI criarUri(Pessoa inserida) {
-		return uriInfo.getBaseUriBuilder().path(ArquivoControllerAPI.class).path(inserida.getId().toString()).build();
+		return uriInfo.getBaseUriBuilder().path(ArquivoResource.class).path(inserida.getId().toString()).build();
 	}
 }

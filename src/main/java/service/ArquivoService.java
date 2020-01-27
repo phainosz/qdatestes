@@ -5,8 +5,8 @@ import javax.ejb.Stateless;
 
 import dao.ArquivoDAO;
 import dao.GenericDAO;
-import entities.Arquivo;
-import enums.Acao;
+import entity.Arquivo;
+import enumerated.AcaoDAO;
 
 @Stateless
 public class ArquivoService extends GenericService<Arquivo> {
@@ -20,7 +20,7 @@ public class ArquivoService extends GenericService<Arquivo> {
 	}
 
 	@Override
-	public void regrasDeNegocioEntidade(Arquivo entity, Acao acao) {
+	public void regrasDeNegocioEntidade(Arquivo entity, AcaoDAO acaoDAO) {
 		// TODO Auto-generated method stub
 
 	}

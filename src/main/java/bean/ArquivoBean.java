@@ -12,8 +12,8 @@ import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import entities.Arquivo;
-import entities.Pessoa;
+import entity.Arquivo;
+import entity.Pessoa;
 import service.ArquivoService;
 import service.PessoaService;
 import util.GerenciadorPlanilha;

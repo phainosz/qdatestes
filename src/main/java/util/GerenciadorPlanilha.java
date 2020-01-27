@@ -16,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.model.UploadedFile;
 
-import entities.Pessoa;
+import entity.Pessoa;
 
 public class GerenciadorPlanilha {
 
