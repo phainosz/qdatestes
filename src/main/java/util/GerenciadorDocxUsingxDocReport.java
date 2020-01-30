@@ -1,10 +1,13 @@
 package util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import entity.Arquivo;
+import entity.Pessoa;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
@@ -19,7 +22,13 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
  */
 public class GerenciadorDocxUsingxDocReport {
 
-	public static void main(String[] args) throws Exception {
+	private Pessoa pessoa;
+
+	public GerenciadorDocxUsingxDocReport(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public Arquivo criar() throws Exception {
 		// pega o template a ser utilizado
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("templatexDocReport.docx");
 
@@ -29,13 +38,19 @@ public class GerenciadorDocxUsingxDocReport {
 		IContext context = docReport.createContext();
 
 		// faz a troca das variaveis pelos valores informados
-		context.put("nome", "Jay Garric");
-		context.put("quality", "slowest");
+		context.put("nome", this.pessoa.getNome());
+		context.put("sobrenome", this.pessoa.getSobrenome());
+		context.put("cpf", this.pessoa.getCpf());
+		context.put("idade", this.pessoa.getIdade().toString());
+		context.put("nascimento", this.pessoa.getDataNascimento().toString());
 
 		// cria o novo arquivo
 		OutputStream outputStream = new FileOutputStream(new File("C:\\Users\\e804684\\Desktop\\resultadoxDocReport.docx"));
-
+		byte[] file = new byte[1024];
+		outputStream.write(file);
 		// processa o novo arquivo
 		docReport.process(context, outputStream);
+
+		return new Arquivo(this.pessoa.getNome() + ".docx", file);
 	}
 }
