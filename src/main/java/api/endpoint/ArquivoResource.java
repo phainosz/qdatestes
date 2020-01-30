@@ -2,6 +2,7 @@ package api.endpoint;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -65,13 +66,13 @@ public class ArquivoResource {
 
 	@POST
 	@ApiOperation(value = "Inserir um arquivo e fazer o upload para a base de dados", consumes = MediaType.MULTIPART_FORM_DATA, produces = MediaType.APPLICATION_JSON)
-	@ApiImplicitParams(value = { @ApiImplicitParam(name = "Arquivo", value = "Arquivo para upload", dataType = "file", paramType = "formData",
-			required = true), @ApiImplicitParam(name = "Nome", value = "Nome do arquivo", dataType = "string", paramType = "formData", required = true) })
+	@ApiImplicitParams(value = { @ApiImplicitParam(name = "Arquivo", value = "Arquivo para upload", dataType = "file", paramType = "formData", required = true) })
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadArquivo(@ApiParam(hidden = true) MultipartFormDataInput input) {
 		Arquivo file = new Arquivo();
+		List<Pessoa> pessoas = new ArrayList<>();
 		// pega o input com o nome de file
-		List<InputPart> inputParts = input.getFormDataMap().get("");
+		List<InputPart> inputParts = input.getParts();
 		for (InputPart part : inputParts) {
 			try {
 				file.setFile(IOUtils.toByteArray(part.getBody(InputStream.class, null)));
@@ -88,14 +89,14 @@ public class ArquivoResource {
 		Arquivo inserido = arquivoDAO.inserir(file);
 		if (inserido.getTipo().equals("xlsx")) {
 			GerenciadorPlanilha gerenciador = new GerenciadorPlanilha();
-			List<Pessoa> pessoas = gerenciador.criar(inserido.getFile());
+			pessoas = gerenciador.criar(inserido.getFile());
 
 			for (Pessoa pessoa : pessoas) {
 				pessoaDAO.inserir(pessoa);
 				System.out.println("Pessoa: " + pessoa);
 			}
 		}
-		return Response.created(criarUri(inserido)).build();
+		return Response.created(criarUri(inserido)).entity(pessoas).build();
 	}
 
 	/**
