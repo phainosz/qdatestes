@@ -30,7 +30,10 @@ import dao.PessoaDAO;
 import entity.Arquivo;
 import entity.Pessoa;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import util.GerenciadorPlanilha;
 
 @Api(tags = "Arquivos")
@@ -48,10 +51,10 @@ public class ArquivoResource {
 	private UriInfo uriInfo;
 
 	@GET
-	@Produces("*/*")
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Path("{arquivo}")
-	@ApiOperation("Fazer o download de um arquivo a partir do nome informado pela URI")
-	public Response downloadArquivo(@PathParam("arquivo") String nome) {
+	@ApiOperation(value = "Fazer o download de um arquivo a partir do nome informado pela URI", produces = MediaType.APPLICATION_OCTET_STREAM)
+	public Response downloadArquivo(@ApiParam(name = "nome", required = true, value = "nome") @PathParam("arquivo") String nome) {
 		Arquivo encontrado = arquivoDAO.buscar(nome);
 		if (encontrado != null) {
 			return Response.ok(encontrado.getFile()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encontrado.getNome() + "\"").build();
@@ -61,12 +64,14 @@ public class ArquivoResource {
 	}
 
 	@POST
-	@ApiOperation("Inserir um arquivo e fazer o upload para a base de dados")
+	@ApiOperation(value = "Inserir um arquivo e fazer o upload para a base de dados", consumes = MediaType.MULTIPART_FORM_DATA, produces = MediaType.APPLICATION_JSON)
+	@ApiImplicitParams(value = { @ApiImplicitParam(name = "Arquivo", value = "Arquivo para upload", dataType = "file", paramType = "formData",
+			required = true), @ApiImplicitParam(name = "Nome", value = "Nome do arquivo", dataType = "string", paramType = "formData", required = true) })
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadArquivo(MultipartFormDataInput input) {
+	public Response uploadArquivo(@ApiParam(hidden = true) MultipartFormDataInput input) {
 		Arquivo file = new Arquivo();
 		// pega o input com o nome de file
-		List<InputPart> inputParts = input.getFormDataMap().get("file");
+		List<InputPart> inputParts = input.getFormDataMap().get("");
 		for (InputPart part : inputParts) {
 			try {
 				file.setFile(IOUtils.toByteArray(part.getBody(InputStream.class, null)));

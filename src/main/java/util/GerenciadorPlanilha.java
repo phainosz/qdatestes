@@ -101,10 +101,8 @@ public class GerenciadorPlanilha {
 	public List<Pessoa> criar(byte[] file) {
 		pessoas = new ArrayList<>();
 		// Recebe o arquivo do upload
-		InputStream in = new ByteArrayInputStream(file);
-		XSSFWorkbook workbook;
-		try {
-			workbook = new XSSFWorkbook(in);
+		try (InputStream in = new ByteArrayInputStream(file)) {
+			XSSFWorkbook workbook = new XSSFWorkbook(in);
 
 			// pega o workbook da aba 0
 			XSSFSheet sheet = workbook.getSheetAt(0);

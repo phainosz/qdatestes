@@ -22,6 +22,8 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
 	public JacksonConfig() {
 		objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
+		// pretty print pode causar perca de performance para identar o codigo
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.setTimeZone(TimeZone.getDefault());
 		objectMapper.setDateFormat(new SimpleDateFormat("dd-MM-yyyy"));

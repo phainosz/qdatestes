@@ -9,11 +9,10 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.Provider;
 
 import api.exception.Mensagem;
 
-@Provider
+//@Provider
 public class SecurityFilter implements ContainerRequestFilter {
 
 	// header enviado pelo cliente

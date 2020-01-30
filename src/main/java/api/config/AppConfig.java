@@ -16,13 +16,15 @@ public class AppConfig extends Application {
 
 	public AppConfig() {
 		BeanConfig conf = new BeanConfig();
-		conf.setTitle("Projeto APIEUD API");
-		conf.setDescription("Projeto para upload e download em rest. Upload de planilha excel padrão, gravar o conteúdo no banco");
+		conf.setTitle("API de testes para o QDA");
+		conf.setDescription("Projeto para upload e download de arquivos em rest. Upload de planilha excel em formato padrao para salvar os dados no banco. Realizar relatorios em PDF");
 		conf.setVersion("1.0.0");
 		conf.setHost("localhost:8080");
-		conf.setBasePath("/apieud/api");
+		conf.setBasePath("/qdatestes/api");
 		conf.setSchemes(new String[] { "http" });
 		conf.setResourcePackage("api.endpoint");
+		// pretty print pode causar perca de performance para identar o codigo
+		conf.setPrettyPrint(true);
 		conf.setScan(true);
 	}
 }

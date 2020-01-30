@@ -6,9 +6,13 @@ package api.config;
  * @author Paulo Hainosz
  *
  */
-//@DatabaseIdentityStoreDefinition(dataSourceLookup = "java:/base", callerQuery = "SELECT password FROM user WHERE username = ?", groupsQuery = "SELECT role FROM user_roles where username = ?", hashAlgorithm = Pbkdf2PasswordHash.class)
+//@DatabaseIdentityStoreDefinition(
+//		dataSourceLookup = "java:/base",
+//		callerQuery = "SELECT password FROM user WHERE username = ?",
+//		groupsQuery = "SELECT role FROM user_roles where username = ?",
+//		hashAlgorithm = Pbkdf2PasswordHash.class)
 //@BasicAuthenticationMechanismDefinition
 //@DeclareRoles({ "USER", "ADMIN" })
-//@ApplicationScoped	
+//@ApplicationScoped
 public class AppSecurityConfig {
 }

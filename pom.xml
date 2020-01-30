@@ -102,13 +102,12 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.1.1</version>
 		</dependency>
-		<!-- ##FIM## -->
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.4</version>
+			<artifactId>commons-compress</artifactId>
+			<version>1.19</version>
 		</dependency>
+		<!-- ##FIM## -->
 
 		<!-- ##INICIO## Dependencias para a configuracao do ObjectMapper na classe JackonConfig -->
 		<dependency>
@@ -128,14 +127,12 @@
 		</dependency>
 		<!-- ##FIM## -->
 
-
 		<!-- dependencia para documentacao do swagger -->
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-jaxrs</artifactId>
 			<version>1.6.0</version>
 		</dependency>
-
 
 		<!-- ##INICIO## dependencias para usar o xDocReport, usado para gravos dados em template em word -->
 		<dependency>
@@ -180,8 +177,13 @@
 		</dependency>
 		<!-- ##FIM## xDocReport -->
 
-	</dependencies>
+		<!-- <dependency> -->
+		<!-- <groupId>commons-io</groupId> -->
+		<!-- <artifactId>commons-io</artifactId> -->
+		<!-- <version>2.6</version> -->
+		<!-- </dependency> -->
 
+	</dependencies>
 
 	<repositories>
 		<!-- usado para funcionar o tema do bootstrap no primefaces -->

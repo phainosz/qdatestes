@@ -14,7 +14,6 @@ import org.primefaces.model.UploadedFile;
 
 import entity.Arquivo;
 import entity.Pessoa;
-import service.ArquivoService;
 import service.PessoaService;
 import util.GerenciadorPlanilha;
 import util.JSFUtils;
@@ -27,9 +26,6 @@ public class ArquivoBean implements Serializable {
 	private Arquivo arquivo;
 
 	@Inject
-	private ArquivoService arquivoService;
-
-	@Inject
 	private PessoaService pessoaService;
 
 	private List<Pessoa> dados;
@@ -40,11 +36,6 @@ public class ArquivoBean implements Serializable {
 	}
 
 	public void gravar() {
-//		Arquivo inserido = arquivoService.inserir(this.arquivo);
-//		if (inserido != null) {
-//			JSFUtils.addMessage("Arquivo Inserido no banco");
-//			this.arquivo = new Arquivo();
-//		}
 
 		for (Pessoa pessoa : dados) {
 			pessoaService.inserir(pessoa);
