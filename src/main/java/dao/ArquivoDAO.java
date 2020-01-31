@@ -25,7 +25,7 @@ public class ArquivoDAO extends GenericDAO<Arquivo> {
 		try {
 			return getEntityManager().createQuery("select a from Arquivo a where a.nome LIKE :p1", Arquivo.class).setParameter("p1", "%" + nome + "%").getSingleResult();
 		} catch (Exception e) {
-			throw new NotFoundException("Arquivo n�o encontrado");
+			throw new NotFoundException("Arquivo :" + nome + ", não encontrado");
 		}
 
 	}

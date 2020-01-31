@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.model.UploadedFile;
 
+import api.exception.Mensagem;
 import entity.Pessoa;
 
 public class GerenciadorPlanilha {
@@ -125,7 +127,7 @@ public class GerenciadorPlanilha {
 			}
 			workbook.close();
 		} catch (Exception e) {
-			throw new WebApplicationException("Falha na leitura da planilha");
+			throw new WebApplicationException(new Mensagem("Falha na leitura da planilha", Status.BAD_REQUEST).toString());
 		}
 		return pessoas;
 
