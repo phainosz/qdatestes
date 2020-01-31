@@ -15,6 +15,7 @@ import entity.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import util.GerenciadorDocx;
 import util.GerenciadorDocxUsingxDocReport;
 
 @Path("relatorios")
@@ -34,12 +35,12 @@ public class ReportResource {
 		Arquivo arquivo = new Arquivo();
 
 		// usando o xDocReport
-		GerenciadorDocxUsingxDocReport xdocRepost = new GerenciadorDocxUsingxDocReport(pessoaEncontrada);
-		arquivo = xdocRepost.criar();
+		GerenciadorDocx xdocRepost = new GerenciadorDocxUsingxDocReport();
+		arquivo = xdocRepost.criar(pessoaEncontrada);
 
 		// usando docx4J
-//		GerenciadorDocxUsingDocx4J docx4J = new GerenciadorDocxUsingDocx4J(pessoaEncontrada);
-//		arquivo = docx4J.criar();
+//		GerenciadorDocx docx4J = new GerenciadorDocxUsingDocx4J();
+//		arquivo = docx4J.criar(pessoaEncontrada);
 
 		return Response.ok(arquivo.getFile()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"").build();
 	}
