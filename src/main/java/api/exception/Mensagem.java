@@ -69,4 +69,8 @@ public class Mensagem {
 		this.validacoes = validacoes;
 	}
 
+	@Override
+		public String toString() {
+			return this.mensagem;
+		}
 }

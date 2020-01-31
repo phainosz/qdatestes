@@ -10,6 +10,9 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import api.exception.Mensagem;
 import entity.Arquivo;
 import entity.Pessoa;
+import fr.opensagres.xdocreport.converter.ConverterTypeTo;
+import fr.opensagres.xdocreport.converter.ConverterTypeVia;
+import fr.opensagres.xdocreport.converter.Options;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
@@ -44,10 +47,15 @@ public class GerenciadorDocxUsingxDocReport implements GerenciadorDocx {
 			// cria o novo arquivo
 //			OutputStream outputStream = new FileOutputStream(new File("C:\\Users\\e804684\\Desktop\\resultadoxDocReport.docx"));
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+			// converte para PDF
+			Options options = Options.getTo(ConverterTypeTo.PDF).via(ConverterTypeVia.XWPF);
+			docReport.convert(context, options, outputStream);
+
 			// processa o novo arquivo
 			docReport.process(context, outputStream);
 
-			return new Arquivo(pessoa.getNome() + ".docx", outputStream.toByteArray());
+			return new Arquivo(pessoa.getNome() + ".pdf", outputStream.toByteArray());
 		} catch (Exception e) {
 			throw new WebApplicationException(new Mensagem("Falha ao criar o PDF", Status.BAD_REQUEST).toString());
 		}

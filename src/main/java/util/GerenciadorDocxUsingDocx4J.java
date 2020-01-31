@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
 
+import org.docx4j.Docx4J;
 import org.docx4j.model.datastorage.migration.VariablePrepare;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
@@ -50,6 +51,8 @@ public class GerenciadorDocxUsingDocx4J implements GerenciadorDocx {
 			documentPart.variableReplace(variaveis);
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+			Docx4J.toPDF(wordMLPackage, outputStream);
 
 			wordMLPackage.save(outputStream);
 
