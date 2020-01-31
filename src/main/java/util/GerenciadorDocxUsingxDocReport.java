@@ -1,6 +1,7 @@
 package util;
 
 import java.io.InputStream;
+import java.time.format.DateTimeFormatter;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
@@ -42,7 +43,7 @@ public class GerenciadorDocxUsingxDocReport implements GerenciadorDocx {
 			context.put("sobrenome", pessoa.getSobrenome());
 			context.put("cpf", pessoa.getCpf());
 			context.put("idade", pessoa.getIdade().toString());
-			context.put("nascimento", pessoa.getDataNascimento().toString());
+			context.put("nascimento", DateTimeFormatter.ofPattern("dd/MM/yyyy").format(pessoa.getDataNascimento()));
 
 			// cria o novo arquivo
 //			OutputStream outputStream = new FileOutputStream(new File("C:\\Users\\e804684\\Desktop\\resultadoxDocReport.docx"));
