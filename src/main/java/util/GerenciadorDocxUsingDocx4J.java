@@ -14,8 +14,8 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 
 import api.exception.Mensagem;
-import entity.Arquivo;
-import entity.Pessoa;
+import model.Arquivo;
+import model.Pessoa;
 
 /**
  * Classe responsavel por ler o template e substituir com novos dados usando

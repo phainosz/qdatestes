@@ -1,7 +1,7 @@
 package util;
 
-import entity.Arquivo;
-import entity.Pessoa;
+import model.Arquivo;
+import model.Pessoa;
 
 public interface GerenciadorDocx {
 

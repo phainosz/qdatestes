@@ -1,6 +1,5 @@
 package bean;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,9 @@ import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import entity.Arquivo;
-import entity.Pessoa;
+import dao.ArquivoDAO;
+import model.Arquivo;
+import model.Pessoa;
 import service.PessoaService;
 import util.GerenciadorPlanilha;
 import util.JSFUtils;
@@ -26,6 +26,9 @@ public class ArquivoBean implements Serializable {
 	private Arquivo arquivo;
 
 	@Inject
+	private ArquivoDAO arquivoDAO;
+
+	@Inject
 	private PessoaService pessoaService;
 
 	private List<Pessoa> dados;
@@ -36,12 +39,16 @@ public class ArquivoBean implements Serializable {
 	}
 
 	public void gravar() {
-
+		Arquivo gravado = arquivoDAO.inserir(arquivo);
 		for (Pessoa pessoa : dados) {
 			pessoaService.inserir(pessoa);
 			System.out.println("Pessoa: " + pessoa);
 		}
-
+		if (gravado != null) {
+			dados.clear();
+			arquivo = new Arquivo();
+			JSFUtils.addMensagem("Arquivo e conteúdo gravado com SUCESSO!!!!!!!!!!!");
+		}
 	}
 
 	/**
@@ -53,8 +60,7 @@ public class ArquivoBean implements Serializable {
 		if (event.getFile() != null) {
 			UploadedFile file = event.getFile();
 			copiarDadosExcelParaEntidade(file);
-			// this.arquivo = new Arquivo(file.getFileName(), file.getContents(),
-			// file.getContentType(), file.getSize());
+			this.arquivo = new Arquivo(file.getFileName(), file.getContents(), file.getContentType());
 		}
 	}
 
@@ -65,12 +71,7 @@ public class ArquivoBean implements Serializable {
 	 */
 	private void copiarDadosExcelParaEntidade(UploadedFile file) {
 		GerenciadorPlanilha gerenciador = new GerenciadorPlanilha();
-		try {
-			this.dados = gerenciador.criar(file);
-		} catch (IOException e) {
-			JSFUtils.addWarnMessage(e.getMessage());
-		}
-
+		this.dados = gerenciador.criar(file.getContents());
 	}
 
 	public Arquivo getArquivo() {

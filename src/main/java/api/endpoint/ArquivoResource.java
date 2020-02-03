@@ -29,13 +29,13 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import dao.ArquivoDAO;
 import dao.PessoaDAO;
-import entity.Arquivo;
-import entity.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import model.Arquivo;
+import model.Pessoa;
 import util.GerenciadorPlanilha;
 
 @Api(tags = "Arquivos")
@@ -60,7 +60,7 @@ public class ArquivoResource {
 	public Response downloadArquivo(@ApiParam(name = "arquivo", required = true) @PathParam("arquivo") String nome) {
 		Arquivo encontrado = arquivoDAO.buscar(nome);
 		if (encontrado != null) {
-			return Response.ok(encontrado.getFile()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encontrado.getNome() + "\"").build();
+			return Response.ok(encontrado.getConteudo()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encontrado.getNome() + "\"").build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -77,7 +77,7 @@ public class ArquivoResource {
 		List<InputPart> inputParts = input.getParts();
 		for (InputPart part : inputParts) {
 			try {
-				file.setFile(IOUtils.toByteArray(part.getBody(InputStream.class, null)));
+				file.setConteudo(IOUtils.toByteArray(part.getBody(InputStream.class, null)));
 			} catch (Exception e) {
 				throw new WebApplicationException("Falha no download");
 			}
@@ -91,7 +91,7 @@ public class ArquivoResource {
 		Arquivo inserido = arquivoDAO.inserir(file);
 		if (inserido.getTipo().equals("xlsx")) {
 			GerenciadorPlanilha gerenciador = new GerenciadorPlanilha();
-			pessoas = gerenciador.criar(inserido.getFile());
+			pessoas = gerenciador.criar(inserido.getConteudo());
 
 			for (Pessoa pessoa : pessoas) {
 				pessoaDAO.inserir(pessoa);

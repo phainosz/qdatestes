@@ -5,8 +5,8 @@ import javax.ejb.Stateless;
 
 import dao.ArquivoDAO;
 import dao.GenericDAO;
-import entity.Arquivo;
 import enumerated.AcaoDAO;
+import model.Arquivo;
 
 @Stateless
 public class ArquivoService extends GenericService<Arquivo> {

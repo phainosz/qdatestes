@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import entity.Pessoa;
+import model.Pessoa;
 
 @Stateless
 public class PessoaDAO extends GenericDAO<Pessoa> {

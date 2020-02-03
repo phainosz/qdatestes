@@ -5,8 +5,8 @@ import javax.ejb.Stateless;
 
 import dao.GenericDAO;
 import dao.PessoaDAO;
-import entity.Pessoa;
 import enumerated.AcaoDAO;
+import model.Pessoa;
 
 @Stateless
 public class PessoaService extends GenericService<Pessoa> {

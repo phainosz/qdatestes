@@ -1,6 +1,7 @@
 package api.endpoint;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -13,11 +14,11 @@ import javax.ws.rs.core.Response.Status;
 
 import api.exception.Mensagem;
 import dao.PessoaDAO;
-import entity.Arquivo;
-import entity.Pessoa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import model.Arquivo;
+import model.Pessoa;
 import util.GerenciadorDocx;
 import util.GerenciadorDocxUsingxDocReport;
 
@@ -32,6 +33,7 @@ public class ReportResource {
 	@GET
 	@Path("pessoas/{id}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@Consumes(MediaType.TEXT_PLAIN)
 	@ApiOperation(value = "Gera relatorios de pessoas pelo id buscado", produces = MediaType.APPLICATION_OCTET_STREAM)
 	public Response report(@ApiParam(name = "id", required = true) @PathParam("id") Long id) throws Exception {
 		Arquivo arquivo = new Arquivo();
@@ -44,7 +46,7 @@ public class ReportResource {
 			// usando docx4J
 //		GerenciadorDocx docx4J = new GerenciadorDocxUsingDocx4J();
 //		arquivo = docx4J.criar(pessoaEncontrada);
-			return Response.ok(arquivo.getFile()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"").build();
+			return Response.ok(arquivo.getConteudo()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"").build();
 		} else {
 			throw new NotFoundException(new Mensagem("Id " + id + " não encontrado", Status.NOT_FOUND).toString());
 		}

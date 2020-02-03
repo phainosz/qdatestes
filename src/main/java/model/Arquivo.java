@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 import java.io.Serializable;
 
@@ -21,7 +21,7 @@ public class Arquivo implements Serializable {
 	private String nome;
 
 	@Lob
-	private byte[] file;
+	private byte[] conteudo;
 
 	private String tipo;
 
@@ -30,7 +30,13 @@ public class Arquivo implements Serializable {
 
 	public Arquivo(String nome, byte[] file) {
 		this.nome = nome;
-		this.file = file;
+		this.conteudo = file;
+	}
+
+	public Arquivo(String nome, byte[] conteudo, String tipo) {
+		this.nome = nome;
+		this.conteudo = conteudo;
+		this.tipo = tipo;
 	}
 
 	public Long getId() {
@@ -45,12 +51,12 @@ public class Arquivo implements Serializable {
 		this.nome = nome;
 	}
 
-	public byte[] getFile() {
-		return file;
+	public byte[] getConteudo() {
+		return conteudo;
 	}
 
-	public void setFile(byte[] file) {
-		this.file = file;
+	public void setConteudo(byte[] file) {
+		this.conteudo = file;
 	}
 
 	public String getTipo() {

@@ -26,5 +26,9 @@ public class AppConfig extends Application {
 		// pretty print pode causar perca de performance para identar o codigo
 		conf.setPrettyPrint(true);
 		conf.setScan(true);
+
+//		Swagger swagger = new Swagger();
+//		swagger.securityDefinition("basicAuth", new BasicAuthDefinition());
+//		new SwaggerContextService().updateSwagger(swagger);
 	}
 }
