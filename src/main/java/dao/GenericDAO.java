@@ -32,11 +32,9 @@ public abstract class GenericDAO<T> {
 	protected GenericDAO() {
 
 		if (getClass().getSuperclass().getGenericSuperclass() instanceof ParameterizedType) {
-			this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass())
-					.getActualTypeArguments()[0];
+			this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
 		} else {
-			this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
-					.getActualTypeArguments()[0];
+			this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		}
 
 	}

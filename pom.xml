@@ -36,7 +36,6 @@
 			<artifactId>docx4j</artifactId>
 			<version>6.1.2</version>
 		</dependency>
-
 		<!-- <dependency> -->
 		<!-- <groupId>com.googlecode.jaxb-namespaceprefixmapper-interfaces</groupId> -->
 		<!-- <artifactId>JAXBNamespacePrefixMapper</artifactId> -->
@@ -51,7 +50,6 @@
 			<version>4.4.2.Final</version>
 			<scope>provided</scope>
 		</dependency>
-
 
 		<dependency>
 			<groupId>jakarta.platform</groupId>
@@ -89,13 +87,6 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- ##INICIO## Dependencias para trabalhar com arquivos office -->
@@ -183,6 +174,14 @@
 			<version>2.0.2</version>
 		</dependency>
 		<!-- ##FIM## xDocReport -->
+
+		<!-- dependencia para testes em rest -->
+		<!-- <dependency> -->
+		<!-- <groupId>io.rest-assured</groupId> -->
+		<!-- <artifactId>rest-assured</artifactId> -->
+		<!-- <version>4.2.0</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 

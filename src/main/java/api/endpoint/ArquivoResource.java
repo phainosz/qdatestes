@@ -55,8 +55,9 @@ public class ArquivoResource {
 	@GET
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	@Path("{arquivo}")
-	@ApiOperation(value = "Fazer o download de um arquivo a partir do nome informado pela URI", produces = MediaType.APPLICATION_OCTET_STREAM, response = File.class)
-	public Response downloadArquivo(@ApiParam(name = "nome do arquivo", required = true) @PathParam("arquivo") String nome) {
+	@ApiOperation(value = "Fazer o download de um arquivo a partir do nome informado pela URI", produces = MediaType.APPLICATION_OCTET_STREAM, consumes = MediaType.TEXT_PLAIN,
+			response = File.class)
+	public Response downloadArquivo(@ApiParam(name = "arquivo", required = true) @PathParam("arquivo") String nome) {
 		Arquivo encontrado = arquivoDAO.buscar(nome);
 		if (encontrado != null) {
 			return Response.ok(encontrado.getFile()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encontrado.getNome() + "\"").build();
