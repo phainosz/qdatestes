@@ -6,6 +6,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -37,6 +38,7 @@ import io.swagger.annotations.ApiParam;
 import model.Arquivo;
 import model.Pessoa;
 import util.GerenciadorPlanilha;
+import util.GerenciadorPlanilhaTemplate;
 
 @Api(tags = "Arquivos")
 @Path("arquivos")
@@ -99,6 +101,16 @@ public class ArquivoResource {
 			}
 		}
 		return Response.created(criarUri(inserido)).entity(pessoas).build();
+	}
+
+	@GET
+	@Path("template")
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@ApiOperation(value = "Criar uma planilha com os nomes das pessoas a partir do template", produces = MediaType.APPLICATION_OCTET_STREAM, response = File.class)
+	public Response testeTemplatePlanilha() {
+		List<String> pessoas = pessoaDAO.listar().stream().map(x -> x.getNome()).collect(Collectors.toList());
+		Arquivo arquivo = GerenciadorPlanilhaTemplate.gerenciar(pessoas);
+		return Response.ok(arquivo.getConteudo()).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"").build();
 	}
 
 	/**

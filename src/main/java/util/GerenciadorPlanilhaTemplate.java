@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
 
@@ -12,6 +13,7 @@ import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 
 import api.exception.Mensagem;
+import model.Arquivo;
 
 /**
  * Classe para gerenciar template em planilhas
@@ -22,15 +24,17 @@ import api.exception.Mensagem;
 public class GerenciadorPlanilhaTemplate {
 
 //	public static void main(String[] args) {
-//		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("pessoas.xlsx");
+//		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("teste.xlsx");
 //		try (OutputStream outputStream = new FileOutputStream("C:\\Users\\e804684\\Desktop\\testeJXLS\\jxls.xlsx")) {
 //			Context context = new Context();
-//			List<String> list = Arrays.asList("Paulo", "João", "Maria", "Carlos");
-//			context.putVar("pessoas", list);
+//			List<String> estacao = Arrays.asList("Estacao 1", "Estacao 2", "Estacao 3", "Estacao 4");
+//			List<String> parametro = Arrays.asList("Parametro 1", "Parametro 2", "Parametro 3", "Parametro 4");
+//			context.putVar("estacao", estacao);
+//			context.putVar("parametro", parametro);
 //
 //			JxlsHelper.getInstance().processTemplate(inputStream, outputStream, context);
 //		} catch (IOException e) {
-//			throw new WebApplicationException(new Mensagem("Falha na execução da planilha", Status.BAD_REQUEST).toString());
+//			throw new RuntimeException(new Mensagem("Falha na execução da planilha", Status.BAD_REQUEST).toString());
 //		}
 //	}
 
@@ -40,17 +44,21 @@ public class GerenciadorPlanilhaTemplate {
 	 * @param list
 	 * @return
 	 */
-	public static byte[] trocarVariaveis(List<?> list) {
+	public static Arquivo gerenciar(List<String> pessoas) {
+		if (pessoas.isEmpty()) {
+			throw new NotFoundException(new Mensagem("Não existem pessoas armazenadas no banco", Status.NOT_FOUND).toString());
+		}
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("pessoas.xlsx");
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Context context = new Context();
-		context.putVar("teste", list);
+		context.putVar("pessoas", pessoas);
 		try {
 			JxlsHelper.getInstance().processTemplate(inputStream, outputStream, context);
 		} catch (IOException e) {
 			throw new WebApplicationException(new Mensagem("Falha na execução da planilha", Status.BAD_REQUEST).toString());
 		}
-		return outputStream.toByteArray();
+		Arquivo arquivo = new Arquivo("teste.xlsx", outputStream.toByteArray());
+		return arquivo;
 	}
 
 }
