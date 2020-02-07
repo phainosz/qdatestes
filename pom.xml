@@ -105,6 +105,17 @@
 			<artifactId>commons-compress</artifactId>
 			<version>1.19</version>
 		</dependency>
+		<!-- depedencia para manipular variaveis em planilhas xls -->
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls</artifactId>
+			<version>2.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-poi</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 		<!-- ##FIM## -->
 
 		<!-- ##INICIO## Dependencias para a configuracao do ObjectMapper na classe JackonConfig -->
